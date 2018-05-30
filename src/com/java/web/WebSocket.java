@@ -1,6 +1,8 @@
 package com.java.web;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -15,6 +17,12 @@ public class WebSocket {
 	@OnOpen
 	public void onOpen(Session session) {
 		System.out.println("onOpen::" + session.getId());
+		Map<String, List<String>> params = session.getRequestParameterMap();
+
+		if (params.get("push") != null && (params.get("push").get(0).equals("TIME"))) {
+			PushService.initialize();
+			PushService.add(session);
+		}
 	}
 
 	@OnClose

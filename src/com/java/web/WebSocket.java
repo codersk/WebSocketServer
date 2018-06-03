@@ -23,6 +23,10 @@ public class WebSocket {
 			PushService.initialize();
 			PushService.add(session);
 		}
+		if (params.get("push") != null && (params.get("push").get(0).equals("Date"))) {
+			PushService2.initialize();
+			PushService2.add(session);
+		}
 	}
 
 	@OnClose
